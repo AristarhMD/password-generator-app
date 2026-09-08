@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  /* Font */
+  --font-sans: "JetBrains Mono", monospace;
+  /* Colors */
+  --color-white: #fff;
+  --color-black: #000;
+  --color-gray-950: #08070b;
+  --color-gray-900: #14131b;
+  --color-gray-850: #18171f;
+  --color-gray-800: #24232c;
+  --color-gray-700: #54535b;
+  --color-gray-600: #817d92;
+  --color-gray-200: #e6e5ea;
+  --color-green-200: #a4ffaf;
+  --color-yellow-300: #f8cd65;
+  --color-orange-400: #fb7c58;
+  --color-red-500: #f64a4a;
+  --background-image-gradient-1: linear-gradient(#14131b 0%, #08070b 100%);
+}
+
+@utility preset-1 {
+  @apply font-bold text-[2rem] leading-10.5 tracking-normal;
+}
+
+@utility preset-2 {
+  @apply font-bold text-2xl leading-8 tracking-normal;
+}
+
+@utility preset-3 {
+  @apply font-bold text-lg leading-6 tracking-normal;
+}
+
+@utility preset-4 {
+  @apply font-bold text-base leading-5 tracking-normal;
+}
