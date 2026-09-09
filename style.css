@@ -6,13 +6,13 @@
   /* Colors */
   --color-white: #fff;
   --color-black: #000;
-  --color-gray-950: #08070b;
-  --color-gray-900: #14131b;
-  --color-gray-850: #18171f;
-  --color-gray-800: #24232c;
-  --color-gray-700: #54535b;
-  --color-gray-600: #817d92;
-  --color-gray-200: #e6e5ea;
+  --color-grey-950: #08070b;
+  --color-grey-900: #14131b;
+  --color-grey-850: #18171f;
+  --color-grey-800: #24232c;
+  --color-grey-700: #54535b;
+  --color-grey-600: #817d92;
+  --color-grey-200: #e6e5ea;
   --color-green-200: #a4ffaf;
   --color-yellow-300: #f8cd65;
   --color-orange-400: #fb7c58;
@@ -34,4 +34,16 @@
 
 @utility preset-4 {
   @apply font-bold text-base leading-5 tracking-normal;
+}
+
+@utility value {
+  @apply preset-2 md:preset-1 text-green-200;
+}
+
+@utility range {
+  @apply appearance-none w-full h-2 bg-grey-850 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:border-2  [&::-moz-range-thumb]:size-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-2
+  
+  /* Inactive */
+  
+  /* Active */;
 }
