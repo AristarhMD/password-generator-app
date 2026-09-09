@@ -41,9 +41,16 @@
 }
 
 @utility range {
-  @apply appearance-none w-full h-2 bg-grey-850 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:border-2  [&::-moz-range-thumb]:size-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-2
-  
-  /* Inactive */
-  
-  /* Active */;
+  @apply appearance-none w-full h-2 bg-grey-850 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:border-2  [&::-moz-range-thumb]:size-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-2;
+}
+
+@utility option-label {
+  @apply relative text-grey-200 preset-4 md:preset-3 cursor-pointer flex items-center gap-4 md:gap-6;
+}
+@utility option-input {
+  @apply appearance-none shrink-0 size-5 ring-2 ring-inset ring-grey-200 checked:bg-green-200  checked:ring-green-200 active:ring-green-200 hover:ring-green-200;
+}
+
+@utility option-svg {
+  @apply absolute left-0.75 bottom-1/2 translate-y-1/2 hidden peer-checked:block;
 }

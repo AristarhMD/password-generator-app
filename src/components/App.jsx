@@ -1,17 +1,39 @@
 import { useState } from "react";
 
 function App() {
-  const [charNum, setCharNum] = useState(10);
+  // State management
   const [isDragging, setIsDragging] = useState(false);
-  const min = 0;
-  const max = 20;
+  const [formData, setFormData] = useState({
+    charNum: 10,
+    upperCase: false,
+    lowerCase: false,
+    numbers: false,
+    symbols: false,
+  });
 
-  const percentage = ((charNum - min) / (max - min)) * 100;
-
-  const handleCharNumChange = (e) => {
-    setCharNum(Number(e.target.value));
+  // Handle chenge in the form data
+  const handleChecked = (e) => {
+    if (e.target.type === "range") {
+      const { name, value } = e.target;
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    } else {
+      const { name, checked } = e.target;
+      setFormData((prev) => ({
+        ...prev,
+        [name]: checked,
+      }));
+    }
   };
 
+  // variabels for changing the fill of the range input.
+  const min = 0;
+  const max = 20;
+  const percentage = ((formData.charNum - min) / (max - min)) * 100;
+
+  // SVG ICONS
   const copyIcon = (
     <svg width="21" height="24" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -20,8 +42,24 @@ function App() {
       />
     </svg>
   );
+  const checkedMark = (
+    <svg
+      className="option-svg"
+      width="14"
+      height="12"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        stroke="#18171F"
+        strokeWidth="3"
+        fill="none"
+        d="M1 5.607 4.393 9l8-8"
+      />
+    </svg>
+  );
+
   return (
-    <main className="mx-auto items-center justify-center w-[91.46%] w-max-135">
+    <main className="mx-auto items-center justify-center w-[91.46%] max-w-135">
       <h1 className="preset-4 md:preset-2 text-grey-600 text-center mb-4 md:mb-8">
         Password Generator
       </h1>
@@ -43,31 +81,87 @@ function App() {
       </section>
       <form
         action="#"
-        className="bg-grey-800 p-4 md:px-8 md:py-6 flex items-center justify-between flex-col"
+        className="bg-grey-800 p-4 md:px-8 md:py-6 flex items-center justify-between flex-col gap-8"
       >
-        <p className="preset-4 md:preset-3 text-grey-200 flex items-center justify-between w-full mb-6 md:mb-8.75">
-          Character Length <span className="value">{charNum}</span>
-        </p>
-        <input
-          type="range"
-          name="charNum"
-          id="charNum"
-          onMouseDown={() => setIsDragging(true)}
-          onMouseUp={() => setIsDragging(false)}
-          onMouseEnter={() => setIsDragging(true)}
-          onMouseLeave={() => setIsDragging(false)}
-          onTouchStart={() => setIsDragging(true)}
-          onTouchEnd={() => setIsDragging(false)}
-          style={{
-            background: `linear-gradient(to right, #A4FFAF 0%, #A4FFAF ${percentage}%, #18171f ${percentage}%, #18171f 100%)`,
-          }}
-          className={`range ${isDragging ? "[&::-webkit-slider-thumb]:bg-grey-850 [&::-webkit-slider-thumb]:border-green-200 [&::-moz-range-thumb]:bg-grey-850 [&::-moz-range-thumb]:border-green-200" : "[&::-webkit-slider-thumb]:bg-white  [&::-webkit-slider-thumb]:border-transparent [&::-moz-range-thumb]:bg-white  [&::-moz-range-thumb]:border-transparent"}`}
-          min="0"
-          max="20"
-          value={charNum}
-          onChange={handleCharNumChange}
-          step="1"
-        />
+        <div className="w-full flex items-center justify-between flex-col">
+          <p className="preset-4 md:preset-3 text-grey-200 flex items-center justify-between w-full mb-6 md:mb-8.75">
+            Character Length <span className="value">{formData.charNum}</span>
+          </p>
+          <input
+            type="range"
+            name="charNum"
+            id="charNum"
+            onMouseDown={() => setIsDragging(true)}
+            onMouseUp={() => setIsDragging(false)}
+            onMouseEnter={() => setIsDragging(true)}
+            onMouseLeave={() => setIsDragging(false)}
+            onTouchStart={() => setIsDragging(true)}
+            onTouchEnd={() => setIsDragging(false)}
+            style={{
+              background: `linear-gradient(to right, #A4FFAF 0%, #A4FFAF ${percentage}%, #18171f ${percentage}%, #18171f 100%)`,
+            }}
+            className={`range ${isDragging ? "[&::-webkit-slider-thumb]:bg-grey-850 [&::-webkit-slider-thumb]:border-green-200 [&::-moz-range-thumb]:bg-grey-850 [&::-moz-range-thumb]:border-green-200" : "[&::-webkit-slider-thumb]:bg-white  [&::-webkit-slider-thumb]:border-transparent [&::-moz-range-thumb]:bg-white  [&::-moz-range-thumb]:border-transparent"}`}
+            min="0"
+            max="20"
+            value={formData.charNum}
+            onChange={handleChecked}
+            step="1"
+          />
+        </div>
+
+        <div className="self-start flex flex-col gap-4">
+          <label className="option-label" htmlFor="upperCase">
+            <input
+              type="checkbox"
+              name="upperCase"
+              id="upperCase"
+              className="option-input peer"
+              checked={formData.upperCase}
+              onChange={handleChecked}
+            />
+            Include Uppercase Letters
+            {checkedMark}
+          </label>
+
+          <label className="option-label" htmlFor="lowerCase">
+            <input
+              className="option-input peer"
+              type="checkbox"
+              name="lowerCase"
+              id="lowerCase"
+              checked={formData.lowerCase}
+              onChange={handleChecked}
+            />
+            Include Lowercase Letters
+            {checkedMark}
+          </label>
+
+          <label className="option-label" htmlFor="numbers">
+            <input
+              className="option-input peer"
+              type="checkbox"
+              name="numbers"
+              id="numbers"
+              checked={formData.numbers}
+              onChange={handleChecked}
+            />
+            Include Numbers
+            {checkedMark}
+          </label>
+
+          <label className="option-label" htmlFor="symbols">
+            <input
+              className="option-input peer"
+              type="checkbox"
+              name="symbols"
+              id="symbols"
+              checked={formData.symbols}
+              onChange={handleChecked}
+            />
+            Include Symbols
+            {checkedMark}
+          </label>
+        </div>
       </form>
     </main>
   );
