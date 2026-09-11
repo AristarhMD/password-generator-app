@@ -183,7 +183,6 @@ function App() {
             className={`preset-4 md:preset-3 text-green-200 ${copied ? "visible opacity-100" : "invisible opacity-0"}`}
             role="status"
             aria-live="polite"
-            aria-hidden={copied}
           >
             COPIED
           </p>
@@ -194,12 +193,13 @@ function App() {
         className="bg-grey-800 p-4 md:px-8 md:py-6 flex items-center justify-between flex-col gap-8"
       >
         <div className="w-full flex items-center justify-between flex-col">
-          <p className="preset-4 md:preset-3 text-grey-200 flex items-center justify-between w-full mb-6 md:mb-8.75">
-            Character Length{" "}
-            <label htmlFor="charNum" className="value">
-              {formData.charNum}
-            </label>
-          </p>
+          <label
+            htmlFor="charNum"
+            className="preset-4 md:preset-3 text-grey-200 flex items-center justify-between w-full mb-6 md:mb-8.75"
+          >
+            Character Length
+            <span className="value">{formData.charNum}</span>
+          </label>
           <input
             type="range"
             name="charNum"
