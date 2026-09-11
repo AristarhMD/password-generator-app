@@ -274,11 +274,6 @@ function App() {
                   className={`general-strength ${bar <= strengthCheck.level ? strengthCheck.color : ""}`}
                 ></span>
               ))}
-
-              {/* <span className="general-strength"></span>
-              <span className="general-strength"></span>
-              <span className="general-strength"></span>
-              <span className="general-strength"></span> */}
             </div>
           </div>
         </div>

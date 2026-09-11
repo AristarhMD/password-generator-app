@@ -34,8 +34,9 @@ Users can:
 
 ### Links
 
-- Solution URL: [Add your Frontend Mentor solution URL here](https://www.frontendmentor.io/profile/AristarhMD)
-- Live Site URL: [Add your deployed site URL here](https://your-live-site-url.com)
+- Solution URL: [Solutions on the frontend](https://www.frontendmentor.io/profile/AristarhMD)
+- Live Site URL: [Deployed site](https://password-generator-vn.netlify.app)
+- GitHub URL: [GitHub Project](https://github.com/AristarhMD/password-generator-app.git)
 
 ## My process
 
