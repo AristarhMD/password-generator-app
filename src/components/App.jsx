@@ -30,12 +30,26 @@ function App() {
     }
   };
 
+  // Handle copy logic
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(password);
+      setIsCopied(true);
+
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 5000);
+    } catch (err) {
+      console.error("Failed to copy text:", err);
+    }
+  };
+
   // variabels for changing the fill of the range input.
   const min = 0;
   const max = 20;
   const percentage = ((formData.charNum - min) / (max - min)) * 100;
-  // Available chars for password
 
+  // Available chars for password
   const allCharacters = {
     upperCase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     lowerCase: "abcdefghijklmnopqrstuvwxyz",
@@ -63,20 +77,6 @@ function App() {
     setIsPassword(generatedPassword);
   };
 
-  // Handle copy logic
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(password);
-      setIsCopied(true);
-
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 5000);
-    } catch (err) {
-      console.error("Failed to copy text:", err);
-    }
-  };
-
   // Generation of the random password
   const randomGeneration = (chars, length) => {
     let arrayOfChars = chars.split("");
@@ -89,6 +89,41 @@ function App() {
 
     return generated;
   };
+
+  // Bars color
+  const getStrength = (length) => {
+    if (length >= 16)
+      return {
+        level: 4,
+        color: "strong",
+        label: "STRONG",
+        textColor: "text-green-200",
+      };
+    if (length >= 11)
+      return {
+        level: 3,
+        color: "medium",
+        label: "MEDIUM",
+        textColor: "text-yellow-300",
+      };
+    if (length >= 6)
+      return {
+        level: 2,
+        color: "weak",
+        label: "WEAK",
+        textColor: "text-orange-400",
+      };
+    if (length >= 1)
+      return {
+        level: 1,
+        color: "very-weak",
+        label: "TOO WEAK!",
+        textColor: "text-red-500",
+      };
+    return { level: 0, color: "", label: "", textColor: "text-transparent" };
+  };
+
+  const strengthCheck = getStrength(password.length);
 
   // SVG ICONS
   const copyIcon = (
@@ -227,11 +262,24 @@ function App() {
 
         <div className="w-full px-4 md:px-8 py-3.5 md:py-6 bg-grey-850 flex items-center justify-between">
           <p className="preset-4 md:preset-3 text-grey-600">STRENGTH</p>
-          <div className="flex items-center gap-2">
-            <span className="general-strength"></span>
-            <span className="general-strength"></span>
-            <span className="general-strength"></span>
-            <span className="general-strength"></span>
+          <div className="flex items-center justify-between gap-4">
+            <p className={`preset-3 md:preset-2 ${strengthCheck.textColor}`}>
+              {strengthCheck.label}
+            </p>
+            <div className="flex items-center gap-2">
+              {/* Generate the bars dynamically based on the password */}
+              {[1, 2, 3, 4].map((bar) => (
+                <span
+                  key={bar}
+                  className={`general-strength ${bar <= strengthCheck.level ? strengthCheck.color : ""}`}
+                ></span>
+              ))}
+
+              {/* <span className="general-strength"></span>
+              <span className="general-strength"></span>
+              <span className="general-strength"></span>
+              <span className="general-strength"></span> */}
+            </div>
           </div>
         </div>
 
