@@ -54,3 +54,21 @@
 @utility option-svg {
   @apply absolute left-0.75 bottom-1/2 translate-y-1/2 hidden peer-checked:block;
 }
+
+@utility general-strength {
+  @apply w-2.5 h-7 ring-2 ring-inset ring-grey-200;
+}
+
+@utility very-weak {
+  @apply ring-red-500 bg-red-500;
+}
+
+@utility weak {
+  @apply ring-orange-400 bg-orange-400;
+}
+@utility medium {
+  @apply ring-yellow-300 bg-yellow-300;
+}
+@utility strong {
+  @apply ring-green-200 bg-green-200;
+}

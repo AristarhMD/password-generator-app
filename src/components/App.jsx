@@ -5,7 +5,7 @@ function App() {
   const [isDragging, setIsDragging] = useState(false);
   const [formData, setFormData] = useState({
     charNum: 10,
-    upperCase: false,
+    upperCase: true,
     lowerCase: false,
     numbers: false,
     symbols: false,
@@ -161,6 +161,16 @@ function App() {
             Include Symbols
             {checkedMark}
           </label>
+        </div>
+
+        <div className="w-full px-4 md:px-8 py-3.5 md:py-6` bg-grey-850 flex items-center justify-between">
+          <p className="preset-4 md:preset-3 text-grey-600">STRENGTH</p>
+          <div className="flex items-center gap-2">
+            <span className="general-strength"></span>
+            <span className="general-strength"></span>
+            <span className="general-strength"></span>
+            <span className="general-strength"></span>
+          </div>
         </div>
       </form>
     </main>
