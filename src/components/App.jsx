@@ -3,6 +3,7 @@ import { useState } from "react";
 function App() {
   // State management
   const [password, setIsPassword] = useState("");
+  const [copied, setIsCopied] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [formData, setFormData] = useState({
     charNum: 10,
@@ -46,6 +47,7 @@ function App() {
   const handleGeneration = (e) => {
     e.preventDefault();
 
+    setIsCopied(false);
     let passwordCharacters = "";
 
     for (const [key, value] of Object.entries(formData)) {
@@ -61,8 +63,21 @@ function App() {
     setIsPassword(generatedPassword);
   };
 
-  // Generation of the random password
+  // Handle copy logic
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(password);
+      setIsCopied(true);
 
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 5000);
+    } catch (err) {
+      console.error("Failed to copy text:", err);
+    }
+  };
+
+  // Generation of the random password
   const randomGeneration = (chars, length) => {
     let arrayOfChars = chars.split("");
     let generated = "";
@@ -116,8 +131,12 @@ function App() {
           value={password}
         />
         <div className="flex flex-row-reverse gap-2 items-center">
-          <button className="group cursor-pointer">{copyIcon}</button>
-          <p className="preset-4 md:preset-3 text-green-200 invisible opacity-0">
+          <button className="group cursor-pointer" onClick={handleCopy}>
+            {copyIcon}
+          </button>
+          <p
+            className={`preset-4 md:preset-3 text-green-200 ${copied ? "visible opacity-100" : "invisible opacity-0"}`}
+          >
             COPIED
           </p>
         </div>
