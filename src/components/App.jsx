@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function App() {
   // State management
+  const [password, setIsPassword] = useState("");
   const [isDragging, setIsDragging] = useState(false);
   const [formData, setFormData] = useState({
     charNum: 10,
@@ -32,6 +33,47 @@ function App() {
   const min = 0;
   const max = 20;
   const percentage = ((formData.charNum - min) / (max - min)) * 100;
+  // Available chars for password
+
+  const allCharacters = {
+    upperCase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    lowerCase: "abcdefghijklmnopqrstuvwxyz",
+    numbers: "0123456789",
+    symbols: "!@#$%^&*()_+-=[]{}|;:,.<>?",
+  };
+
+  // Handle generation of the password
+  const handleGeneration = (e) => {
+    e.preventDefault();
+
+    let passwordCharacters = "";
+
+    for (const [key, value] of Object.entries(formData)) {
+      if (key === "charNum") continue;
+      else if (value === true) passwordCharacters += allCharacters[key];
+    }
+
+    let generatedPassword = randomGeneration(
+      passwordCharacters,
+      formData.charNum,
+    );
+
+    setIsPassword(generatedPassword);
+  };
+
+  // Generation of the random password
+
+  const randomGeneration = (chars, length) => {
+    let arrayOfChars = chars.split("");
+    let generated = "";
+
+    for (let i = 0; i < length; i++) {
+      generated +=
+        arrayOfChars[Math.floor(Math.random() * arrayOfChars.length)];
+    }
+
+    return generated;
+  };
 
   // SVG ICONS
   const copyIcon = (
@@ -71,6 +113,7 @@ function App() {
           id="password"
           placeholder="P4$5W0rD!"
           disabled
+          value={password}
         />
         <div className="flex flex-row-reverse gap-2 items-center">
           <button className="group cursor-pointer">{copyIcon}</button>
@@ -163,7 +206,7 @@ function App() {
           </label>
         </div>
 
-        <div className="w-full px-4 md:px-8 py-3.5 md:py-6` bg-grey-850 flex items-center justify-between">
+        <div className="w-full px-4 md:px-8 py-3.5 md:py-6 bg-grey-850 flex items-center justify-between">
           <p className="preset-4 md:preset-3 text-grey-600">STRENGTH</p>
           <div className="flex items-center gap-2">
             <span className="general-strength"></span>
@@ -172,6 +215,20 @@ function App() {
             <span className="general-strength"></span>
           </div>
         </div>
+
+        <button
+          type="submit"
+          className="w-full group flex items-center justify-center gap-4 md:gap-6 bg-green-200 preset-4 md:preset-3 text-grey-800 py-4 md:py-6 hover:bg-transparent hover:text-green-200 hover:ring-2 hover:ring-inset hover:ring-green-200 cursor-pointer"
+          onClick={handleGeneration}
+        >
+          GENERATE
+          <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
+            <path
+              className="fill-grey-800 group-hover:fill-green-200"
+              d="m5.106 12 6-6-6-6-1.265 1.265 3.841 3.84H.001v1.79h7.681l-3.841 3.84z"
+            />
+          </svg>
+        </button>
       </form>
     </main>
   );
